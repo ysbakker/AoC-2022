@@ -11,4 +11,10 @@
       <ProjectReference Include="..\Solutions\Solutions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="input.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
 </Project>

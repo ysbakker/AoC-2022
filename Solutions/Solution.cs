@@ -4,7 +4,7 @@ namespace Solutions;
 
 public abstract class Solution
 {
-    private string[] Input { get; }
+    internal string[] Input { get; set; }
     
     public Solution(string[] input)
     {

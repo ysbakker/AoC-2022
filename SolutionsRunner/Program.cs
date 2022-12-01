@@ -11,9 +11,9 @@ Solution solution = SolutionsFactory.CreateSolution(day, input);
 
 if (part == 1)
 {
-    solution.RunPartOne();
+    solution.RunPartOneBenchmarked();
 }
 else if (part == 2)
 {
-    solution.RunPartTwo();
+    solution.RunPartTwoBenchmarked();
 }
