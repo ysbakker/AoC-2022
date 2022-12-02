@@ -7,6 +7,7 @@ public static class SolutionsFactory
         return day switch
         {
             1 => new Day01Solution(input),
+            2 => new Day02Solution(input),
             _ => throw new ArgumentOutOfRangeException(nameof(day), day, null)
         };
     }
