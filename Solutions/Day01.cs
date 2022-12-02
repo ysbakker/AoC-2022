@@ -1,5 +1,3 @@
-using System.Text.Json;
-
 namespace Solutions;
 
 public class Day01Solution : Solution

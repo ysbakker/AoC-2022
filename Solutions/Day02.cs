@@ -1,10 +1,15 @@
-using System.Runtime.InteropServices.ComTypes;
-using System.Text.Json;
-
 namespace Solutions;
 
 public class Day02Solution : Solution
 {
+    // shape => [winning counter, losing counter]
+    Dictionary<Shapes, Shapes[]> shapes = new()
+    {
+        { Shapes.Rock, new[] { Shapes.Paper, Shapes.Scissors } },
+        { Shapes.Paper, new[] { Shapes.Scissors, Shapes.Rock } },
+        { Shapes.Scissors, new[] { Shapes.Rock, Shapes.Paper } }
+    };
+
     public Day02Solution(string[] input) : base(input)
     {
     }
@@ -38,17 +43,9 @@ public class Day02Solution : Solution
     {
         var score = (int)selectedShape;
 
-        if (opponentShape == Shapes.Paper && selectedShape == Shapes.Scissors ||
-            opponentShape == Shapes.Rock && selectedShape == Shapes.Paper ||
-            opponentShape == Shapes.Scissors && selectedShape == Shapes.Rock)
-        {
-            score += 6;
-        }
+        if (shapes[selectedShape][1] == opponentShape) score += 6;
 
-        if (opponentShape == selectedShape)
-        {
-            score += 3;
-        }
+        if (opponentShape == selectedShape) score += 3;
 
         return score;
     }
@@ -67,32 +64,14 @@ public class Day02Solution : Solution
     private Shapes DetermineOutcomeShape(Shapes opponentShape, string desiredOutcome)
     {
         if (desiredOutcome == "X") // lose
-        {
-            return opponentShape switch
-            {
-                Shapes.Rock => Shapes.Scissors,
-                Shapes.Paper => Shapes.Rock,
-                Shapes.Scissors => Shapes.Paper,
-                _ => throw new ArgumentOutOfRangeException(nameof(opponentShape), opponentShape, null)
-            };
-        }
+            return shapes[opponentShape][1];
 
         if (desiredOutcome == "Y") // draw
-        {
             return opponentShape;
-        }
 
         if (desiredOutcome == "Z") // win
-        {
-            return opponentShape switch
-            {
-                Shapes.Rock => Shapes.Paper,
-                Shapes.Paper => Shapes.Scissors,
-                Shapes.Scissors => Shapes.Rock,
-                _ => throw new ArgumentOutOfRangeException(nameof(opponentShape), opponentShape, null)
-            };
-        }
-
+            return shapes[opponentShape][0];
+        
         throw new Exception("Invalid outcome");
     }
 }
