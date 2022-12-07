@@ -12,6 +12,7 @@ public static class SolutionsFactory
             4 => new Day04Solution(input),
             5 => new Day05Solution(input),
             6 => new Day06Solution(input),
+            7 => new Day07Solution(input),
             _ => throw new ArgumentOutOfRangeException(nameof(day), day, null)
         };
     }
