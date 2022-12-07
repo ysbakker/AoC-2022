@@ -3,7 +3,7 @@ namespace Solutions;
 public class Day05Solution : Solution
 {
     private readonly Dictionary<int, Stack<char>> _stacks = new(); // stack number => [crates]
-    private string[] _instructions;
+    private string[] _instructions = null!;
     
     public Day05Solution(string[] input) : base(input)
     {
