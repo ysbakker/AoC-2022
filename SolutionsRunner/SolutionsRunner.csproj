@@ -8,13 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Solutions\Solutions.csproj" />
+        <ProjectReference Include="..\Solutions\Solutions.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="input.txt">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </None>
+        <Content Include="input.txt">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Input/*">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
 
 </Project>

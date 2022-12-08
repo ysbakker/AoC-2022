@@ -7,6 +7,11 @@ var part = int.Parse(argument[1]);
 
 var input = File.ReadAllLines("input.txt");
 
+if (!input.Any())
+{
+    input = File.ReadAllLines($"Input/day{day:D2}.txt");
+}
+
 Solution solution = SolutionsFactory.CreateSolution(day, input);
 
 if (part == 1)
