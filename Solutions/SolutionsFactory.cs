@@ -1,19 +1,13 @@
+using System.Reflection;
+
 namespace Solutions;
 
 public static class SolutionsFactory
 {
     public static Solution CreateSolution(int day, string[] input)
     {
-        return day switch
-        {
-            1 => new Day01Solution(input),
-            2 => new Day02Solution(input),
-            3 => new Day03Solution(input),
-            4 => new Day04Solution(input),
-            5 => new Day05Solution(input),
-            6 => new Day06Solution(input),
-            7 => new Day07Solution(input),
-            _ => throw new ArgumentOutOfRangeException(nameof(day), day, null)
-        };
+        Assembly assembly = Assembly.Load("Solutions");
+        Type solutionType = assembly.GetType($"Solutions.Day{day:D2}");
+        return (Solution)Activator.CreateInstance(solutionType, new object[] { input });
     }
 }

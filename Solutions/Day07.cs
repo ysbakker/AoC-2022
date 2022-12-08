@@ -1,12 +1,12 @@
 namespace Solutions;
 
-public class Day07Solution : Solution
+public class Day07 : Solution
 {
     private string CurrentPath { get; set; } = string.Empty;
     private readonly Dictionary<string, int> _directorySizes = new();
     private readonly Dictionary<string, int> _totalDirectorySizes = new();
     
-    public Day07Solution(string[] input) : base(input)
+    public Day07(string[] input) : base(input)
     {
         ExecuteCommands();
     }

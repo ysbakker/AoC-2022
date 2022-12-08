@@ -1,11 +1,11 @@
 namespace Solutions;
 
-public class Day05Solution : Solution
+public class Day05 : Solution
 {
     private readonly Dictionary<int, Stack<char>> _stacks = new(); // stack number => [crates]
     private string[] _instructions = null!;
     
-    public Day05Solution(string[] input) : base(input)
+    public Day05(string[] input) : base(input)
     {
         TransformInput();
     }

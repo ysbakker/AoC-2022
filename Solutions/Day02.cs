@@ -1,6 +1,6 @@
 namespace Solutions;
 
-public class Day02Solution : Solution
+public class Day02 : Solution
 {
     // shape => [winning counter, losing counter]
     Dictionary<Shapes, Shapes[]> shapes = new()
@@ -10,7 +10,7 @@ public class Day02Solution : Solution
         { Shapes.Scissors, new[] { Shapes.Rock, Shapes.Paper } }
     };
 
-    public Day02Solution(string[] input) : base(input)
+    public Day02(string[] input) : base(input)
     {
     }
 

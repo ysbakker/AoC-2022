@@ -1,8 +1,8 @@
 namespace Solutions;
 
-public class Day01Solution : Solution
+public class Day01 : Solution
 {
-    public Day01Solution(string[] input) : base(input)
+    public Day01(string[] input) : base(input)
     {
         var list = new List<string>(input);
         list.Add("");

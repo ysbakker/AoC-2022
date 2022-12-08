@@ -1,8 +1,8 @@
 namespace Solutions;
 
-public class Day04Solution : Solution
+public class Day04 : Solution
 {
-    public Day04Solution(string[] input) : base(input)
+    public Day04(string[] input) : base(input)
     {
     }
 
