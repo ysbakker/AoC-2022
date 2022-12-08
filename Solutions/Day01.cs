@@ -2,7 +2,7 @@ namespace Solutions;
 
 public class Day01 : Solution
 {
-    public Day01(string[] input) : base(input)
+    public Day01(string[] input, int day) : base(input, day)
     {
         var list = new List<string>(input);
         list.Add("");
@@ -11,12 +11,12 @@ public class Day01 : Solution
 
     public override void RunPartOne()
     {
-        Console.WriteLine(GetMaximumCalories(Input).Max());
+        Result(GetMaximumCalories(Input).Max());
     }
 
     public override void RunPartTwo()
     {
-        Console.WriteLine(GetMaximumCalories(Input).Sum());
+        Result(GetMaximumCalories(Input).Sum());
     }
 
     private int[] GetMaximumCalories(string[] input)

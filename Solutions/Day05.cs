@@ -2,36 +2,40 @@ namespace Solutions;
 
 public class Day05 : Solution
 {
-    private readonly Dictionary<int, Stack<char>> _stacks = new(); // stack number => [crates]
+    private Dictionary<int, Stack<char>> _stacks = new(); // stack number => [crates]
     private string[] _instructions = null!;
     
-    public Day05(string[] input) : base(input)
+    public Day05(string[] input, int day) : base(input, day)
     {
-        TransformInput();
     }
 
     public override void RunPartOne()
     {
+        TransformInput();
+
         foreach (var instruction in _instructions)
         {
             ProcessInstruction(instruction);
         }
 
-        Console.WriteLine(String.Join("", _stacks.Select(stack => stack.Value.Peek())));
+        Result(String.Join("", _stacks.Select(stack => stack.Value.Peek())));
     }
 
     public override void RunPartTwo()
     {
+        TransformInput();
+
         foreach (var instruction in _instructions)
         {
             ProcessInstruction(instruction, 9001);
         }
 
-        Console.WriteLine(String.Join("", _stacks.Select(stack => stack.Value.Peek())));
+        Result(String.Join("", _stacks.Select(stack => stack.Value.Peek())));
     }
 
     private void TransformInput()
     {
+        _stacks = new();
         var stacksLine = Input.First(line => line.Contains("1"));
         var stacks = stacksLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         

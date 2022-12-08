@@ -4,11 +4,21 @@ namespace Solutions;
 
 public abstract class Solution
 {
+    private int _day;
     internal string[] Input { get; set; }
     
-    public Solution(string[] input)
+    public Solution(string[] input, int day)
     {
         Input = input;
+        _day = day;
+    }
+
+    public void RunDay()
+    {
+        Console.WriteLine($">> Day {_day}, part one:");
+        RunPartOneBenchmarked();
+        Console.WriteLine($"\n>> Day {_day}, part two:");
+        RunPartTwoBenchmarked();
     }
 
     public void RunPartOneBenchmarked()
@@ -17,7 +27,7 @@ public abstract class Solution
         sw.Start();
         RunPartOne();
         sw.Stop();
-        Console.WriteLine($"\n---\nRun took {sw.ElapsedMilliseconds}ms.");
+        Console.WriteLine($"> Run took {sw.ElapsedMilliseconds}ms or {sw.ElapsedTicks} ticks.");
     }
     
     public void RunPartTwoBenchmarked()
@@ -26,9 +36,14 @@ public abstract class Solution
         sw.Start();
         RunPartTwo();
         sw.Stop();
-        Console.WriteLine($"\n---\nRun took {sw.ElapsedMilliseconds}ms.");
+        Console.WriteLine($"> Run took {sw.ElapsedMilliseconds}ms or {sw.ElapsedTicks} ticks.");
     }
     
     public abstract void RunPartOne();
     public abstract void RunPartTwo();
+
+    internal void Result<T>(T result)
+    {
+        Console.WriteLine($"> Result: {result}");
+    }
 }

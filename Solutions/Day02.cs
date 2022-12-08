@@ -10,18 +10,18 @@ public class Day02 : Solution
         { Shapes.Scissors, new[] { Shapes.Rock, Shapes.Paper } }
     };
 
-    public Day02(string[] input) : base(input)
+    public Day02(string[] input, int day) : base(input, day)
     {
     }
 
     public override void RunPartOne()
     {
-        Console.WriteLine(CalculateScore(Input, 1));
+        Result(CalculateScore(Input, 1));
     }
 
     public override void RunPartTwo()
     {
-        Console.WriteLine(CalculateScore(Input, 2));
+        Result(CalculateScore(Input, 2));
     }
 
     private int CalculateScore(string[] input, int part)

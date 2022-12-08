@@ -2,7 +2,7 @@ namespace Solutions;
 
 public class Day08 : Solution
 {
-    public Day08(string[] input) : base(input)
+    public Day08(string[] input, int day) : base(input, day)
     {
     }
 
@@ -21,7 +21,7 @@ public class Day08 : Solution
             }
         }
 
-        Console.WriteLine(treesVisible);
+        Result(treesVisible);
     }
 
     public override void RunPartTwo()
@@ -39,7 +39,7 @@ public class Day08 : Solution
             }
         }
 
-        Console.WriteLine(highestScore);
+        Result(highestScore);
     }
 
     private bool IsTreeVisibleFromDirection(int y, int x, int dy, int dx)

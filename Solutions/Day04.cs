@@ -2,19 +2,19 @@ namespace Solutions;
 
 public class Day04 : Solution
 {
-    public Day04(string[] input) : base(input)
+    public Day04(string[] input, int day) : base(input, day)
     {
     }
 
     public override void RunPartOne()
     {
-        Console.WriteLine(CompareSections((sectionOne, sectionTwo) =>
+        Result(CompareSections((sectionOne, sectionTwo) =>
             !sectionOne.Except(sectionTwo).Any() || !sectionTwo.Except(sectionOne).Any()));
     }
 
     public override void RunPartTwo()
     {
-        Console.WriteLine(CompareSections((sectionOne, sectionTwo) => sectionOne.Intersect(sectionTwo).Any()));
+        Result(CompareSections((sectionOne, sectionTwo) => sectionOne.Intersect(sectionTwo).Any()));
     }
 
     private int CompareSections(Func<int[], int[], bool> comparer)

@@ -1,8 +1,18 @@
-﻿using Solutions;
+﻿using System.Diagnostics;
+using Solutions;
 
-var argument = args[0].Split("-");
-var day = int.Parse(argument[0]);
-var part = int.Parse(argument[1]);
+int day, part = 0;
+
+if (args[0].Contains("-"))
+{
+    var argument = args[0].Split("-");
+    day = int.Parse(argument[0]);
+    part = int.Parse(argument[1]);
+}
+else
+{
+    day = int.Parse(args[0]);
+}
 
 var input = File.ReadAllLines("input.txt");
 
@@ -20,4 +30,8 @@ if (part == 1)
 else if (part == 2)
 {
     solution.RunPartTwoBenchmarked();
+}
+else if (part == 0)
+{
+    solution.RunDay();
 }

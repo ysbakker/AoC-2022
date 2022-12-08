@@ -2,7 +2,7 @@ namespace Solutions;
 
 public class Day03 : Solution
 {
-    public Day03(string[] input) : base(input)
+    public Day03(string[] input, int day) : base(input, day)
     {
     }
 
@@ -14,7 +14,7 @@ public class Day03 : Solution
             sum += ProductToPriority(FindDuplicateProduct(s));
         }
 
-        Console.WriteLine(sum);
+        Result(sum);
     }
 
     public override void RunPartTwo()
@@ -25,7 +25,7 @@ public class Day03 : Solution
             sum += ProductToPriority(FindBadge(Input[(i*3)..(i*3+3)]));
         }
 
-        Console.WriteLine(sum);
+        Result(sum);
     }
 
     private char FindDuplicateProduct(string rucksack)

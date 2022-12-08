@@ -2,18 +2,18 @@ namespace Solutions;
 
 public class Day06 : Solution
 {
-    public Day06(string[] input) : base(input)
+    public Day06(string[] input, int day) : base(input, day)
     {
     }
 
     public override void RunPartOne()
     {
-        Console.WriteLine(FindDistinctCharactersMarker(4));
+        Result(FindDistinctCharactersMarker(4));
     }
 
     public override void RunPartTwo()
     {
-        Console.WriteLine(FindDistinctCharactersMarker(14));
+        Result(FindDistinctCharactersMarker(14));
     }
 
     public int FindDistinctCharactersMarker(int n)

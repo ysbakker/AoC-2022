@@ -6,14 +6,14 @@ public class Day07 : Solution
     private readonly Dictionary<string, int> _directorySizes = new();
     private readonly Dictionary<string, int> _totalDirectorySizes = new();
     
-    public Day07(string[] input) : base(input)
+    public Day07(string[] input, int day) : base(input, day)
     {
         ExecuteCommands();
     }
 
     public override void RunPartOne()
     {
-        Console.WriteLine(_totalDirectorySizes.Sum(v => v.Value <= 100_000 ? v.Value : 0));
+        Result(_totalDirectorySizes.Sum(v => v.Value <= 100_000 ? v.Value : 0));
     }
 
     public override void RunPartTwo()
@@ -25,7 +25,7 @@ public class Day07 : Solution
         var spaceToFree = requiredFreeDiskSpace - (totalDiskSpace - currentSpaceInUse);
         var smallestPossibleDirectory = _totalDirectorySizes.Values.Where(v => v > spaceToFree).Min();
         
-        Console.WriteLine(smallestPossibleDirectory);
+        Result(smallestPossibleDirectory);
     }
 
     private void ExecuteCommands()
