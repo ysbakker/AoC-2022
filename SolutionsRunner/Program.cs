@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Solutions;
+﻿using Solutions;
 
 var argument = args[0].Split("-");
 var day = int.Parse(argument[0]);
