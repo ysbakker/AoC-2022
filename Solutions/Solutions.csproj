@@ -7,4 +7,8 @@
         <RootNamespace>Solutions</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Spectre.Console" Version="0.45.1-preview.0.46" />
+    </ItemGroup>
+
 </Project>
