@@ -2,74 +2,128 @@ namespace Solutions;
 
 public class Day12 : Solution
 {
+    private readonly (int dx, int dy)[] _neighbors = { (0, 1), (0, -1), (1, 0), (-1, 0) };
+
     public Day12(string[] input, int day) : base(input, day)
     {
     }
 
     public override void RunPartOne()
     {
-        (int x, int y) startPosition = (0, 0);
-        List<List<(int x, int y)>> possiblePaths = new List<List<(int x, int y)>>();
-        List<List<(int x, int y)>> pathsToEnd = new List<List<(int x, int y)>>();
-        
-        for (int i = 0; i < Input.Length; i++)
+        (int x, int y)? startPosition = null;
+        (int x, int y)? endPosition = null;
+
+        for (var i = 0; i < Input.Length; i++)
         {
-            if (Input[i].IndexOf('S') >= 0)
+            if (Input[i].Contains('S'))
             {
                 startPosition = (Input[i].IndexOf('S'), i);
-                break;
+                Input[i] = Input[i].Replace('S', 'a');
+            }
+            if (Input[i].Contains('E'))
+            {
+                endPosition = (Input[i].IndexOf('E'), i);
+                Input[i] = Input[i].Replace('E', 'z');
             }
         }
-        
-        possiblePaths.Add(new List<(int x, int y)> { startPosition });
-        (int x, int y)[] permutations = new (int x, int y)[] { (0, 1), (0, -1), (1, 0), (-1, 0) };
-        
-        while (true)
+
+        int numberOfNodes = Input.Length * Input[0].Length;
+        int[] previous = new int[numberOfNodes];
+        bool[] visited = new bool[numberOfNodes];
+        Queue<(int x, int y)> placesToVisit = new();
+        placesToVisit.Enqueue(startPosition!.Value);
+        visited[PositionToIndex(startPosition.Value)] = true;
+
+        while (placesToVisit.Any())
         {
-            if (!possiblePaths.Any())
-            {
-                break;
-            }
-            foreach (var path in new List<List<(int x, int y)>>(possiblePaths))
-            {
-                var (curX, curY) = path[^1];
-                foreach (var (dx, dy) in permutations)
-                {
-                    if (curX + dx < 0 || curX + dx >= Input[0].Length || curY + dy < 0 || curY + dy >= Input.Length)
-                    {
-                        // Out of bounds
-                        continue;
-                    }
-                    
-                    var currentHeight = Input[curY][curX];
-                    if (currentHeight == 'S') currentHeight = 'a';
-                    var nextHeight = Input[curY + dy][curX + dx];
-                    if (nextHeight == 'E') nextHeight = 'z';
+            var pos = placesToVisit.Dequeue();
 
-                    if (nextHeight - currentHeight < 0) continue;
-                    
-                    if (nextHeight - currentHeight <= 1 && !path.Contains((curX + dx, curY + dy)))
-                    {
-                        if (Input[curY + dy][curX + dx] == 'E')
-                        {
-                            pathsToEnd.Add(new List<(int x, int y)>(path) { (curX + dx, curY + dy) });
-                        }
-                        else
-                        {
-                            possiblePaths.Add(new List<(int x, int y)>(path) { (curX + dx, curY + dy) });
-                        }
-                    }
-                }
-
-                possiblePaths.Remove(path);
+            foreach (var (dx, dy) in _neighbors)
+            {
+                (int x, int y) newPos = (pos.x + dx, pos.y + dy);
+                if (!IsValidLocation(newPos) || visited[PositionToIndex(newPos)] || !CanReach(newPos, pos)) continue;
+                
+                placesToVisit.Enqueue(newPos);
+                visited[PositionToIndex(newPos)] = true;
+                previous[PositionToIndex(newPos)] = PositionToIndex(pos);
             }
+            if (pos == endPosition) break;
         }
 
-        Result(pathsToEnd.Select(p => p.Count).Min() - 1);
+        Result(CalculateSteps(PositionToIndex(startPosition.Value), PositionToIndex(endPosition!.Value), previous));
     }
 
     public override void RunPartTwo()
     {
-        throw new NotImplementedException();
+        (int x, int y)? startPosition = null;
+        (int x, int y)? endPosition = null;
+
+        for (var i = 0; i < Input.Length; i++)
+        {
+            if (Input[i].Contains('S'))
+            {
+                Input[i] = Input[i].Replace('S', 'a');
+            }
+            if (Input[i].Contains('E'))
+            {
+                startPosition = (Input[i].IndexOf('E'), i);
+                Input[i] = Input[i].Replace('E', 'z');
+            }
+        }
+        
+        int numberOfNodes = Input.Length * Input[0].Length;
+        int[] previous = new int[numberOfNodes];
+        bool[] visited = new bool[numberOfNodes];
+        Queue<(int x, int y)> placesToVisit = new();
+        placesToVisit.Enqueue(startPosition!.Value);
+        visited[PositionToIndex(startPosition.Value)] = true;
+
+        while (placesToVisit.Any())
+        {
+            var pos = placesToVisit.Dequeue();
+
+            foreach (var (dx, dy) in _neighbors)
+            {
+                (int x, int y) newPos = (pos.x + dx, pos.y + dy);
+                
+                if (!IsValidLocation(newPos) || visited[PositionToIndex(newPos)] || !CanReach(pos, newPos)) continue;
+                
+                placesToVisit.Enqueue(newPos);
+                visited[PositionToIndex(newPos)] = true;
+                previous[PositionToIndex(newPos)] = PositionToIndex(pos);
+                if (!endPosition.HasValue && Input[newPos.y][newPos.x] == 'a') endPosition = newPos;
+            }
+            if (pos == endPosition) break;
+        }
+
+        Result(CalculateSteps(PositionToIndex(startPosition.Value), PositionToIndex(endPosition!.Value), previous));
+    }
+    
+    private bool CanReach((int x, int y) newPos, (int x, int y) pos)
+    {
+        return Input[newPos.y][newPos.x] - Input[pos.y][pos.x] < 2;
+    }
+
+    private int CalculateSteps(int start, int end, int[] previous)
+    {
+        var steps = 0;
+        var current = end;
+        while (current != start)
+        {
+            current = previous[current];
+            steps++;
+        }
+
+        return steps;
+    }
+
+    private bool IsValidLocation((int x, int y) pos)
+    {
+        return pos.x >= 0 && pos.x < Input[0].Length && pos.y >= 0 && pos.y < Input.Length; 
+    }
+
+    private int PositionToIndex((int x, int y) pos)
+    {
+        return pos.y * Input[0].Length + pos.x;
     }
 }
