@@ -21,7 +21,7 @@ if (!input.Any())
     input = File.ReadAllLines($"Input/day{day:D2}.txt");
 }
 
-bool visualized = args.Length > 0 && args[1] == "v";
+bool visualized = args.Length > 1 && args[1] == "v";
 Solution solution = SolutionsFactory.CreateSolution(day, input, visualized);
 
 if (part == 1)
