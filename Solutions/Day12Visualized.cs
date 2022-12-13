@@ -128,9 +128,8 @@ public class Day12Visualized : Solution
         var current = end;
         while (current != start)
         {
-            int x = current % Input[0].Length - 1;
+            int x = current % Input[0].Length;
             int y = (int)Math.Ceiling(current / (double)Input[0].Length - 1);
-            x = x > 0 ? x : 0;
             Console.SetCursorPosition(x, y);
             var character = Input[y][x];
             AnsiConsole.Markup($"[bold white]{character}[/]");
